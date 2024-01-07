@@ -164,6 +164,7 @@ public class LinkedList{
                     break;
                 default:
                     System.out.println("Invalid Input...");
+                    break;
             }
 
         }while(opt != 7);
