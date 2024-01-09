@@ -1,47 +1,51 @@
 import java.util.Scanner;
 
 public class StringReplacement {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    static String str, pat, rep;
+    static StringBuilder ans;
+    static int i, j, k, n, m;
+    static int flag = 0;
 
-        System.out.print("Enter main String:");
-        String mainString = scanner.nextLine();
-        System.out.print("Enter pattern String:");
-        String patternString = scanner.nextLine();
-        System.out.print("Enter replace String:");
-        String replaceString = scanner.nextLine();
+    static void stringMatch() {
+        i = j = n = m = 0;
+        ans = new StringBuilder();
 
-        scanner.close();
-
-        String resultString = stringMatch(mainString, patternString, replaceString);
-
-        if (resultString != null) {
-            System.out.println("The resultant String is: " + resultString);
-        } else {
-            System.out.println("Pattern not found...");
+        while (i < str.length()) {
+            if (str.charAt(i) == pat.charAt(j)) {
+                i++;
+                j++;
+                if (j == pat.length()) {
+                    flag = 1;
+                    ans.append(rep);
+                    j = 0;
+                }
+            } else {
+                ans.append(str.charAt(i));
+                i++;
+                m++;
+                n = i;
+                j = 0;
+            }
         }
     }
 
-    public static String stringMatch(String mainString, String patternString, String replaceString) {
-        StringBuilder resultString = new StringBuilder();
-        int i = 0, n = 0;
-        boolean flag = false;
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        while (i < mainString.length()) {
-            if (mainString.charAt(i) == patternString.charAt(n)) {
-                i++;
-                n++;
-                if (n == patternString.length()) {
-                    flag = true;
-                    resultString.append(replaceString);
-                    n = 0;
-                }
-            } else {
-                resultString.append(mainString.charAt(i));
-                i++;
-                n = 0;
-            }
+        System.out.print("Enter main string: ");
+        str = scanner.nextLine();
+        System.out.print("Enter pattern string: ");
+        pat = scanner.nextLine();
+        System.out.print("Enter replace string: ");
+        rep = scanner.nextLine();
+
+        stringMatch();
+
+        if (flag == 1) {
+            System.out.println("String successfully changed: " + ans.toString());
+        } else {
+            System.out.println("Pattern not found.");
         }
-        return flag ? resultString.toString() : null;
+        scanner.close();
     }
 }
